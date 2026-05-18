@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Josh Grieve — Editorial Collage Portfolio Prototype</title>
+  <meta name="description" content="Motion-rich editorial/collage portfolio prototype for Josh Grieve." />
+  <link rel="preconnect" href="https://cdn.prod.website-files.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;650;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#050505;
+      --paper:#f0eee5;
+      --paper-2:#dcd8cb;
+      --muted:#a4a096;
+      --line:rgba(240,238,229,.28);
+      --yellow:#ecff00;
+      --blue:#1f67ff;
+      --hot:#fe4f1d;
+      --soft:#c8c4b5;
+      --font-display:'Anton', Impact, sans-serif;
+      --font-body:'Inter', system-ui, sans-serif;
+      --font-mono:'Space Mono', ui-monospace, monospace;
+      --ease:cubic-bezier(.16,1,.3,1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:auto;background:var(--ink);color:var(--paper)}
+    body{margin:0;font-family:var(--font-body);background:var(--ink);color:var(--paper);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");mix-blend-mode:screen}
+    a{color:inherit;text-decoration:none}
+    button,input,textarea,select{font:inherit}
+    .site{position:relative;min-height:100vh;isolation:isolate}
+    .site-header{position:fixed;top:18px;left:24px;right:24px;z-index:60;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference;color:white;pointer-events:none}
+    .brand{pointer-events:auto;font-family:var(--font-mono);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:13px;line-height:1.05}
+    .nav{pointer-events:auto;display:flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:5px;background:rgba(0,0,0,.16);backdrop-filter:blur(14px)}
+    .nav a{font-size:12px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em;padding:10px 13px;border-radius:999px;color:white;transition:background .25s var(--ease)}
+    .nav a:hover,.nav a:focus-visible{background:rgba(255,255,255,.18);outline:0}
+    .availability{position:fixed;right:34px;top:92px;z-index:55;background:var(--yellow);color:#090909;border:2px solid #090909;box-shadow:8px 8px 0 rgba(0,0,0,.6);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.02em;padding:12px 15px;transform:rotate(3deg);transition:transform .25s var(--ease)}
+    .availability:hover{transform:rotate(-2deg) translateY(-3px)}
+    .rail{position:fixed;left:28px;top:112px;bottom:34px;z-index:50;width:46px;pointer-events:none;color:rgba(255,255,255,.75)}
+    .rail-line{position:absolute;left:11px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--paper),transparent);transform-origin:top}
+    .rail-dot{position:absolute;left:4px;width:15px;height:15px;border:1px solid currentColor;border-radius:50%;background:#050505}
+    .rail-dot:after{content:"";position:absolute;left:6px;top:-8px;width:1px;height:29px;background:currentColor;opacity:.5;transform:rotate(90deg)}
+    .rail-dot:nth-child(2){top:4%}.rail-dot:nth-child(3){top:34%}.rail-dot:nth-child(4){top:66%}.rail-dot:nth-child(5){top:94%}
+    .rail-text{position:absolute;left:28px;bottom:0;writing-mode:vertical-rl;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.5)}
+    .section{position:relative;min-height:100svh;padding:112px clamp(22px,5vw,76px) 70px clamp(22px,7vw,118px)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(330px,.88fr);gap:clamp(24px,4vw,68px);align-items:center;overflow:hidden;background:radial-gradient(circle at 76% 36%,rgba(31,103,255,.24),transparent 30%),radial-gradient(circle at 20% 70%,rgba(236,255,0,.12),transparent 24%),#050505}
+    .kicker{font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);display:flex;gap:10px;align-items:center;margin-bottom:18px}.kicker:before{content:"";width:54px;height:1px;background:currentColor}
+    .hero-title,.mega-title{font-family:var(--font-display);font-weight:400;text-transform:uppercase;letter-spacing:-.045em;line-height:.82;margin:0}.hero-title{font-size:clamp(76px,13.6vw,226px);max-width:980px}.title-line{display:block;overflow:hidden}.title-line>span{display:block}.highlight{display:inline-block;background:var(--yellow);color:#060606;padding:0 .05em .06em .04em;transform:rotate(-1deg);box-shadow:12px 10px 0 rgba(31,103,255,.55)}
+    .hero-copy{margin-top:28px;max-width:580px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}.intro{font-size:clamp(16px,1.38vw,21px);line-height:1.35;color:#ddd8c9;margin:0}.cta{display:inline-flex;align-items:center;gap:11px;background:var(--paper);color:#050505;border:0;border-radius:0;padding:17px 20px;font-weight:900;text-transform:uppercase;box-shadow:7px 7px 0 var(--yellow);cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}.cta:hover{transform:translate(-2px,-2px);box-shadow:11px 11px 0 var(--yellow)}
+    .portrait-zone{position:relative;min-height:620px;display:grid;place-items:center;perspective:1000px}.spray{position:absolute;width:80%;height:75%;background:var(--yellow);filter:blur(1px);clip-path:polygon(9% 10%,94% 3%,85% 92%,2% 82%);opacity:.92;transform:rotate(8deg)}.blue-paper{position:absolute;width:68%;height:78%;background:linear-gradient(135deg,#245fff,#1a3ab5);clip-path:polygon(3% 3%,97% 0,93% 96%,0 90%);transform:rotate(-4deg);box-shadow:0 38px 70px rgba(0,0,0,.55)}.portrait-card{position:relative;width:min(410px,78vw);background:#111;border:1px solid rgba(255,255,255,.22);padding:13px;box-shadow:18px 18px 0 rgba(0,0,0,.65);transform:rotate(1.4deg)}.portrait-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(100%) contrast(1.18)}.caption{display:flex;justify-content:space-between;gap:16px;margin-top:12px;font-family:var(--font-mono);font-size:10px;text-transform:uppercase;color:#e8e4d8}.tape{position:absolute;background:rgba(240,238,229,.82);width:126px;height:34px;box-shadow:0 4px 10px rgba(0,0,0,.25);opacity:.8}.tape.one{top:64px;right:16%;transform:rotate(11deg)}.tape.two{bottom:112px;left:7%;transform:rotate(-9deg)}.sticker{position:absolute;font-family:var(--font-mono);text-transform:uppercase;border:1px solid #0a0a0a;color:#090909;background:var(--paper);padding:10px 12px;box-shadow:5px 5px 0 rgba(0,0,0,.42)}.sticker.barcode{right:1%;bottom:22%;font-size:10px;transform:rotate(8deg)}.barcode-lines{display:block;height:30px;margin-top:6px;background:repeating-linear-gradient(90deg,#050505 0 2px,transparent 2px 5px,#050505 5px 6px,transparent 6px 10px)}.scribble{position:absolute;font-family:var(--font-mono);color:var(--yellow);font-size:14px;max-width:170px;line-height:1.15;transform:rotate(-8deg);left:1%;top:24%}.arrow-doodle{position:absolute;right:5%;top:25%;font-size:54px;color:var(--yellow);transform:rotate(24deg)}
+    .work{min-height:110svh;padding-left:0;padding-right:0;background:#050505;overflow:hidden}.section-head{padding-left:clamp(22px,7vw,118px);padding-right:clamp(22px,5vw,76px);position:relative;z-index:2}.mega-title{font-size:clamp(64px,13vw,218px)}.work .mega-title{color:var(--paper)}.work-intro{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-top:14px;font-family:var(--font-mono);text-transform:uppercase;color:var(--muted);font-size:12px}.work-track{display:flex;gap:clamp(18px,3vw,44px);padding:48px clamp(22px,7vw,118px) 80px;will-change:transform}.project-card{position:relative;flex:0 0 min(78vw,980px);min-height:560px;background:var(--paper);color:#050505;border:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:.92fr 1.08fr;overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.55)}.project-card.yellow{background:linear-gradient(90deg,var(--yellow) 0 43%,var(--paper) 43%)}.project-card.blue{background:linear-gradient(90deg,#0a0a0a 0 39%,#e9e6d8 39%);color:#050505}.project-card.black{background:linear-gradient(90deg,#111 0 45%,var(--yellow) 45%)}.project-meta{padding:38px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}.project-no{font-family:var(--font-display);font-size:clamp(70px,9vw,142px);line-height:.8;letter-spacing:-.05em}.project-title{font-family:var(--font-display);font-size:clamp(42px,6vw,86px);line-height:.84;letter-spacing:-.035em;text-transform:uppercase;margin:18px 0}.project-desc{font-size:17px;line-height:1.35;max-width:390px}.tags{display:flex;gap:8px;flex-wrap:wrap}.tag{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;border:1px solid currentColor;padding:7px 9px;background:rgba(255,255,255,.16)}.project-visual{position:relative;min-height:100%;display:grid;place-items:center;padding:34px;overflow:hidden}.project-visual:before{content:"";position:absolute;inset:8%;background:radial-gradient(circle at 50% 40%,rgba(0,0,0,.2),transparent 42%);border:1px solid rgba(0,0,0,.14);transform:rotate(-2deg)}.project-visual img{position:relative;z-index:2;width:min(88%,560px);height:min(70%,430px);object-fit:cover;box-shadow:18px 22px 0 rgba(0,0,0,.22);filter:contrast(1.05) saturate(.86)}.project-card.blue .project-meta,.project-card.black .project-meta{color:var(--paper)}.work-progress{position:absolute;left:clamp(22px,7vw,118px);right:clamp(22px,5vw,76px);bottom:34px;height:2px;background:rgba(255,255,255,.16)}.work-progress span{display:block;height:100%;width:8%;background:var(--yellow)}
+    .about{display:grid;grid-template-columns:.82fr 1.05fr .82fr;gap:42px;align-items:center;background:linear-gradient(180deg,#050505,#0c0c0c 50%,#050505)}.about .mega-title{font-size:clamp(76px,12.5vw,186px)}.blue-mark{display:inline-block;background:var(--blue);color:var(--paper);padding:0 .08em;transform:rotate(1deg)}.about-copy{font-size:18px;line-height:1.48;color:#d8d3c4}.collage-stack{position:relative;min-height:610px}.desk-card,.note-card{position:absolute;background:var(--paper);color:#050505;border:1px solid #050505;box-shadow:14px 14px 0 rgba(0,0,0,.65)}.desk-card{left:8%;top:9%;width:78%;padding:12px;transform:rotate(-3deg)}.desk-card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:grayscale(100%) contrast(1.12)}.note-card{right:2%;bottom:9%;width:62%;padding:22px;transform:rotate(4deg);font-family:var(--font-mono);font-size:12px;line-height:1.45}.about-panel{background:rgba(240,238,229,.08);border:1px solid rgba(240,238,229,.18);padding:28px;box-shadow:12px 12px 0 rgba(31,103,255,.34)}.about-panel h3{font-family:var(--font-display);font-size:42px;margin:0 0 18px;text-transform:uppercase;line-height:.9}.about-panel p{color:#d8d3c4;line-height:1.45}.client-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}.client{border:1px solid rgba(255,255,255,.24);padding:10px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;color:#f5f0df}
+    .contact{display:grid;grid-template-columns:1fr 420px;gap:44px;align-items:center;background:var(--paper);color:#050505;overflow:hidden}.contact .mega-title{color:#050505}.contact-form{margin-top:28px;background:#050505;color:var(--paper);padding:32px;border:2px solid #050505;box-shadow:14px 14px 0 var(--yellow);transform:rotate(-.8deg)}.field{display:grid;gap:8px;margin-bottom:18px}.field label{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;color:#bfb9aa}.field input,.field textarea{width:100%;border:0;border-bottom:1px solid rgba(255,255,255,.32);background:transparent;color:var(--paper);padding:12px 0;outline:0}.field input:focus,.field textarea:focus{border-bottom-color:var(--yellow)}.field textarea{min-height:110px;resize:vertical}.contact-card{position:relative;background:#111;color:var(--paper);padding:34px;border:1px solid rgba(255,255,255,.2);box-shadow:20px 20px 0 rgba(0,0,0,.18);transform:rotate(3deg)}.contact-card:before{content:"";position:absolute;left:28px;right:28px;top:-18px;height:34px;background:rgba(255,255,255,.55);transform:rotate(-4deg)}.contact-card h3{font-family:var(--font-display);font-size:58px;line-height:.9;margin:0 0 22px;text-transform:uppercase}.contact-row{display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.18);padding:16px 0;font-family:var(--font-mono);font-size:12px}.footer-note{position:absolute;left:clamp(22px,7vw,118px);bottom:22px;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;color:rgba(0,0,0,.55)}
+    .reveal,.collage-item,.project-card{opacity:0;transform:translateY(28px)}
+    @media (max-width: 900px){.site-header{left:14px;right:14px}.nav{gap:0}.nav a{padding:9px 8px;font-size:10px}.availability,.rail{display:none}.section{padding:88px 18px 54px}.hero,.about,.contact{grid-template-columns:1fr}.hero-title{font-size:clamp(70px,20vw,130px)}.hero-copy{grid-template-columns:1fr}.portrait-zone{min-height:520px}.work-track{display:grid;gap:22px;padding:32px 18px}.project-card{flex:auto;grid-template-columns:1fr;min-height:auto}.project-meta{gap:40px}.project-visual{min-height:360px}.about{gap:24px}.collage-stack{min-height:520px}.contact-card{transform:rotate(0)}.contact-form{transform:rotate(0)}.footer-note{position:static;margin-top:32px}.mega-title{font-size:clamp(58px,18vw,120px)}}
+    @media (prefers-reduced-motion: reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.reveal,.collage-item,.project-card{opacity:1!important;transform:none!important}}
+  </style>
+</head>
+<body>
+  <div class="site">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Josh Grieve home">Josh<br>Grieve</a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <a class="availability" href="mailto:joshgrieve@gmail.com">Open for work</a>
+    <aside class="rail" aria-hidden="true"><span class="rail-line"></span><span class="rail-dot"></span><span class="rail-dot"></span><span class="rail-dot"></span><span class="rail-dot"></span><span class="rail-text">OC · CA / Systems + Platforms</span></aside>
+
+    <main>
+      <section class="section hero" id="top">
+        <div class="hero-main">
+          <p class="kicker reveal">Senior Product Designer / Systems & Platforms</p>
+          <h1 class="hero-title" aria-label="Products with purpose">
+            <span class="title-line"><span>Products</span></span>
+            <span class="title-line"><span>with</span></span>
+            <span class="title-line"><span class="highlight">Purpose.</span></span>
+          </h1>
+          <div class="hero-copy reveal">
+            <p class="intro">I help teams bring structure and clarity to complicated systems — shaping products that are powerful, usable, and human.</p>
+            <a class="cta" href="#work">View work <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="portrait-zone" data-depth=".05">
+          <div class="spray collage-item" data-depth=".09"></div>
+          <div class="blue-paper collage-item" data-depth=".06"></div>
+          <div class="tape one collage-item" data-depth=".03"></div>
+          <figure class="portrait-card collage-item" data-depth=".035">
+            <img alt="Josh Grieve portrait" src="https://cdn.prod.website-files.com/64040c92f813ce89cfef7937/698c1a10a2914387381dc5d5_Linkedin%20Profile%20Image%20copy-p-500.jpg" />
+            <figcaption class="caption"><span>Product Design</span><span>Systems / Strategy / Craft</span></figcaption>
+          </figure>
+          <div class="tape two collage-item" data-depth=".04"></div>
+          <div class="sticker barcode collage-item" data-depth=".08">Portfolio Index<span class="barcode-lines"></span></div>
+          <p class="scribble collage-item" data-depth=".07">Taking the complicated and making it feel human.</p>
+          <div class="arrow-doodle collage-item" aria-hidden="true" data-depth=".1">↘</div>
+        </div>
+      </section>
+
+      <section class="section work" id="work">
+        <div class="section-head">
+          <p class="kicker reveal">Featured work / scroll study</p>
+          <h2 class="mega-title reveal">Selected Work</h2>
+          <div class="work-intro reveal"><span>Three case studies pulled from current site content</span><span>Drag the page ↓</span></div>
+        </div>
+        <div class="work-track">
+          <article class="project-card yellow">
+            <div class="project-meta"><div><div class="project-no">01</div><h3 class="project-title">“Dolly” Design System</h3><p class="project-desc">Building a scalable design system to unify product experiences for a leading social technology company in Menlo Park, CA.</p></div><div class="tags"><span class="tag">Design System</span><span class="tag">UX Design</span><span class="tag">UI Design</span></div></div>
+            <div class="project-visual"><img alt="Dolly design system project visual" src="https://cdn.prod.website-files.com/64040c92f813ce8177ef797e/69853ed7a3ffdc97f40a1493_MDC%20Quest%20PDP%20Hero.jpg" /></div>
+          </article>
+          <article class="project-card blue">
+            <div class="project-meta"><div><div class="project-no">02</div><h3 class="project-title">Kelley Blue Book Deal Advisor</h3><p class="project-desc">Helping car buyers negotiate with confidence through clearer vehicle pricing insights.</p></div><div class="tags"><span class="tag">Interaction Design</span><span class="tag">Visual Design</span><span class="tag">Product Strategy</span></div></div>
+            <div class="project-visual"><img alt="Kelley Blue Book Deal Advisor project visual" src="https://cdn.prod.website-files.com/64040c92f813ce8177ef797e/699a299646e1613237b9d9c9_Insitu%20Deal%20Advisor%20Close%20up%20top.jpg" /></div>
+          </article>
+          <article class="project-card black">
+            <div class="project-meta"><div><div class="project-no">03</div><h3 class="project-title">Netgear Total Network Solution</h3><p class="project-desc">Positioning Netgear’s enterprise networking platform with the launch of the PR60X Pro router.</p></div><div class="tags"><span class="tag">Enterprise</span><span class="tag">Launch System</span><span class="tag">UI Strategy</span></div></div>
+            <div class="project-visual"><img alt="Netgear Total Network Solution project visual" src="https://cdn.prod.website-files.com/64040c92f813ce8177ef797e/699e081b555b1cecb517bea1_Insitu%20Netgear%20TNS%20State%201.jpg" /></div>
+          </article>
+        </div>
+        <div class="work-progress" aria-hidden="true"><span></span></div>
+      </section>
+
+      <section class="section about" id="about">
+        <div>
+          <p class="kicker reveal">About me</p>
+          <h2 class="mega-title reveal">About <span class="blue-mark">Me.</span></h2>
+          <p class="about-copy reveal">Hi, I’m Josh, a product designer who enjoys bringing structure and clarity to complicated systems. I work across consumer and enterprise products, focusing on experiences that need to be both powerful and easy to understand.</p>
+        </div>
+        <div class="collage-stack">
+          <figure class="desk-card collage-item"><img alt="Josh Grieve desk and process image" src="https://cdn.prod.website-files.com/64040c92f813ce89cfef7937/698c1a9baf43dd63e005e642_Desk%20shot-p-1080.jpg" /></figure>
+          <div class="note-card collage-item">Core belief:<br><strong>take something complicated and make it feel human.</strong><br><br>Based in Orange County, CA.</div>
+        </div>
+        <aside class="about-panel reveal">
+          <h3>Systems with soul.</h3>
+          <p>I’ve collaborated with teams at Meta, Netgear, Kelley Blue Book, and CoxAuto to translate complex requirements into cohesive products that teams can build and users can trust.</p>
+          <div class="client-grid" aria-label="Selected clients"><span class="client">Meta</span><span class="client">Oculus</span><span class="client">Netgear</span><span class="client">CoxAuto</span><span class="client">KBB</span><span class="client">Redbull</span></div>
+        </aside>
+      </section>
+
+      <section class="section contact" id="contact">
+        <div>
+          <p class="kicker reveal">Contact / New projects</p>
+          <h2 class="mega-title reveal">Contact Me</h2>
+          <form class="contact-form reveal" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Message ready ↗';">
+            <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" placeholder="Your name" /></div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" autocomplete="email" placeholder="you@company.com" /></div>
+            <div class="field"><label for="message">Project notes</label><textarea id="message" name="message" placeholder="Tell me what you're building…"></textarea></div>
+            <button class="cta" type="submit">Start a conversation <span aria-hidden="true">↗</span></button>
+          </form>
+        </div>
+        <aside class="contact-card reveal">
+          <h3>Let’s build the clear version.</h3>
+          <div class="contact-row"><span>Email</span><a href="mailto:joshgrieve@gmail.com">joshgrieve@gmail.com</a></div>
+          <div class="contact-row"><span>Location</span><span>Orange County, CA</span></div>
+          <div class="contact-row"><span>Focus</span><span>Product / Systems / Strategy</span></div>
+          <div class="contact-row"><span>Status</span><span>Open for work</span></div>
+        </aside>
+        <p class="footer-note">©2026 Josh Grieve — Prototype reinterpretation</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce && window.gsap) {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.set('.title-line > span', { yPercent: 110 });
+      const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' }});
+      heroTl.from('.site-header', { y:-24, autoAlpha:0, duration:.8 })
+        .from('.availability', { y:-18, rotate:9, autoAlpha:0, duration:.7 }, '-=.45')
+        .from('.rail-line', { scaleY:0, transformOrigin:'top', duration:1.1 }, '-=.55')
+        .to('.title-line > span', { yPercent:0, duration:1.05, stagger:.08 }, '-=.65')
+        .to('.reveal', { opacity:1, y:0, duration:.78, stagger:.06 }, '-=.5')
+        .to('.collage-item', { opacity:1, y:0, duration:.9, stagger:.055, ease:'back.out(1.4)' }, '-=.45');
+
+      gsap.utils.toArray('.reveal').forEach(el => {
+        if (el.closest('.hero')) return;
+        gsap.to(el, { opacity:1, y:0, duration:.8, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 82%' }});
+      });
+      gsap.utils.toArray('.collage-item').forEach(el => {
+        if (el.closest('.hero')) return;
+        gsap.to(el, { opacity:1, y:0, duration:.9, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 84%' }});
+      });
+      gsap.utils.toArray('.project-card').forEach((card,i) => {
+        gsap.to(card, { opacity:1, y:0, duration:.8, delay:i*.08, ease:'power3.out', scrollTrigger:{ trigger:'.work', start:'top 72%' }});
+      });
+
+      const track = document.querySelector('.work-track');
+      const progress = document.querySelector('.work-progress span');
+      function desktop(){ return window.innerWidth > 900 && track.scrollWidth > window.innerWidth; }
+      if (desktop()) {
+        const distance = () => track.scrollWidth - window.innerWidth + window.innerWidth * .08;
+        gsap.to(track, { x: () => -distance(), ease:'none', scrollTrigger:{ trigger:'.work', start:'top top', end:() => '+=' + distance(), scrub:1, pin:true, anticipatePin:1, invalidateOnRefresh:true, onUpdate:self => { progress.style.width = Math.max(8, self.progress*100) + '%'; } }});
+        gsap.utils.toArray('.project-visual img').forEach(img => {
+          gsap.to(img, { xPercent:-8, ease:'none', scrollTrigger:{ trigger:'.work', start:'top top', end:() => '+=' + distance(), scrub:1 }});
+        });
+      }
+      document.addEventListener('pointermove', (e) => {
+        const cx = window.innerWidth/2, cy = window.innerHeight/2;
+        const dx = (e.clientX-cx)/cx, dy = (e.clientY-cy)/cy;
+        document.querySelectorAll('[data-depth]').forEach(el => {
+          const d = parseFloat(el.dataset.depth || .03);
+          gsap.to(el, { x: dx*d*80, y: dy*d*56, rotateY: dx*d*5, rotateX: -dy*d*5, duration:.7, ease:'power3.out' });
+        });
+      }, { passive:true });
+    } else {
+      document.querySelectorAll('.reveal,.collage-item,.project-card,.title-line > span').forEach(el => { el.style.opacity = 1; el.style.transform = 'none'; });
+    }
+  </script>
+</body>
+</html>
